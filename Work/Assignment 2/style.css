@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    margin: 0;
+    padding: 40px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.converter {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.converter div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+select,
+input {
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #333;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#rate,
+#last-updated {
+    text-align: center;
+}
+
+#history-list {
+    padding-left: 20px;
+}
+
+#history-list li {
+    margin: 8px 0;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Currency Converter</h1>
+
+        <div class="converter">
+            <div>
+                <select id="currency-one">
+                    <option value="THB">THB</option>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                </select>
+
+                <input type="number" id="amount-one" placeholder="จำนวนเงิน">
+            </div>
+
+            <div>
+                <select id="currency-two">
+                    <option value="USD">USD</option>
+                    <option value="THB">THB</option>
+                    <option value="EUR">EUR</option>
+                </select>
+
+                <input type="number" id="amount-two" placeholder="จำนวนเงิน">
+            </div>
+        </div>
+
+        <p id="rate">อัตราแลกเปลี่ยน: -</p>
+
+        <p id="last-updated">อัปเดตล่าสุด: -</p>
+
+        <button id="clear-data">ล้างข้อมูล</button>
+
+        <hr>
+
+        <h2>ประวัติการแปลงเงิน</h2>
+
+        <ul id="history-list"></ul>
+
+        <button id="clear-history">ล้างประวัติ</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
