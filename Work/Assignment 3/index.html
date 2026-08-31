@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>บัญชีรายรับ-รายจ่าย</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>โปรแกรมบัญชีรายรับ-รายจ่าย</h1>
+    <h2>67112399 วีรภัทร เพ็งภู่</h2>
+
+    <div class="form-box">
+        <select id="type">
+            <option value="income">รายรับ</option>
+            <option value="expense">รายจ่าย</option>
+        </select>
+        <input id="name" placeholder="ชื่อรายการ">
+        <select id="category">
+            <option>อาหาร</option>
+            <option>เดินทาง</option>
+            <option>ช้อปปิ้ง</option>
+            <option>เงินเดือน</option>
+            <option>อื่นๆ</option>
+        </select>
+        <input id="amount" type="number" placeholder="จำนวนเงิน">
+        <button onclick="add()">เพิ่มรายการ</button>
+    </div>
+
+    <input id="search" placeholder="ค้นหารายการ..." oninput="show()">
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ประเภท</th>
+                <th>รายการ</th>
+                <th>หมวดหมู่</th>
+                <th>จำนวนเงิน</th>
+            </tr>
+        </thead>
+        <tbody id="list"></tbody>
+    </table>
+
+    <h3 id="summary"></h3>
+
+    <button id="clearBtn" onclick="clearData()">ล้างข้อมูลทั้งหมด</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
