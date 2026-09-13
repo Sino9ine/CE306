@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Farm Relax เกมปลูกผักง่าย ๆ สำหรับผ่อนคลาย">
+  <title>Farm Relax 🌱</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class"
+    };
+  </script>
+
+  <link rel="stylesheet" href="tailwind.css">
+</head>
+
+<body class="min-h-screen bg-green-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+  <header class="border-b border-green-200 bg-white/90 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/90">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+      <div>
+        <h1 class="text-2xl font-extrabold text-green-700 dark:text-green-400 sm:text-3xl">🌱 Farm Relax</h1>
+        <p class="text-sm text-slate-600 dark:text-slate-300">เกมปลูกผักง่าย ๆ สำหรับผ่อนคลาย</p>
+      </div>
+
+      <button id="themeButton"
+        type="button"
+        class="rounded-xl border border-slate-300 bg-slate-100 px-4 py-2 text-sm font-bold text-slate-800 shadow-sm transition hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
+        aria-label="เปลี่ยนโหมดสี">
+        🌙 โหมดมืด
+      </button>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <section class="mb-6 rounded-2xl border border-green-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+        <div class="rounded-xl bg-amber-50 p-3 dark:bg-amber-950/40">
+          <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">เหรียญ</p>
+          <p id="coins" class="text-xl font-extrabold text-amber-600 dark:text-amber-400 inline-flex items-center gap-1">100 <span class="coin-icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><circle cx="12" cy="12" r="9" fill="#FBBF24" stroke="#B45309" stroke-width="1.5"/><circle cx="12" cy="12" r="6" fill="none" stroke="#F59E0B" stroke-width="1.5"/><path d="M12 7v10M9.5 9.5c.5-1 4-1 4.5.5.5 1.5-4 1-4 2.5s4 1 4.5-.5" fill="none" stroke="#92400E" stroke-width="1.4" stroke-linecap="round"/></svg></span></p>
+        </div>
+        <div class="rounded-xl bg-green-50 p-3 dark:bg-green-950/40">
+          <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">เก็บเกี่ยว</p>
+          <p id="harvestCount" class="text-xl font-extrabold text-green-700 dark:text-green-400">0</p>
+        </div>
+        <div class="rounded-xl bg-blue-50 p-3 dark:bg-blue-950/40">
+          <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">เป้าหมาย</p>
+          <p id="goalText" class="text-xl font-extrabold text-blue-700 dark:text-blue-400">5</p>
+        </div>
+        <div class="rounded-xl bg-purple-50 p-3 dark:bg-purple-950/40">
+          <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">เวลาเหลือ</p>
+          <p id="timer" class="text-xl font-extrabold text-purple-700 dark:text-purple-400">03:00</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid gap-6 lg:grid-cols-[1fr_340px]">
+      <section class="rounded-2xl border border-green-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-6">
+        <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 class="text-xl font-extrabold sm:text-2xl">🚜 แปลงผัก</h2>
+            <p id="levelText" class="mt-1 text-sm font-semibold text-green-700 dark:text-green-400">Level 1 · ง่าย · 4 แปลง</p>
+          </div>
+          <button id="newGameButton" type="button"
+            class="rounded-xl bg-green-600 px-4 py-2.5 font-bold text-white shadow-sm transition hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300">
+            🎮 เกมใหม่
+          </button>
+        </div>
+
+        <div id="farmGrid" class="farm-grid level-1" aria-label="แปลงปลูกผัก"></div>
+
+        <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p class="font-bold">เมล็ดที่เลือก: <span id="selectedSeedText" class="text-green-700 dark:text-green-400">🥕 แครอท</span></p>
+            <p class="text-sm text-slate-600 dark:text-slate-300">เลือกแปลง → ปลูก → รดน้ำ → รอ → เก็บเกี่ยว</p>
+          </div>
+
+          <div class="mt-4 grid grid-cols-3 gap-2">
+            <button id="plantButton" type="button" class="game-action-button bg-green-600 hover:bg-green-700">🌱 ปลูก</button>
+            <button id="waterButton" type="button" class="game-action-button bg-blue-600 hover:bg-blue-700">💧 รดน้ำ</button>
+            <button id="harvestButton" type="button" class="game-action-button bg-amber-500 hover:bg-amber-600">🧺 เก็บ</button>
+          </div>
+
+          <p id="status" role="status" aria-live="polite"
+            class="mt-4 rounded-xl bg-green-100 px-4 py-3 text-sm font-semibold text-green-900 dark:bg-green-950 dark:text-green-200">
+            เลือกแปลงแล้วปลูกผักได้เลย 🌱
+          </p>
+        </div>
+      </section>
+
+      <aside class="space-y-6">
+        <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <h2 class="text-lg font-extrabold">🌾 เมล็ดพันธุ์</h2>
+          <div id="seedList" class="mt-3 space-y-2"></div>
+        </section>
+
+        <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <h2 class="text-lg font-extrabold">🛒 ร้านค้า</h2>
+          <div id="shopList" class="mt-3 space-y-2"></div>
+        </section>
+
+        <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <h2 class="text-lg font-extrabold">🎯 ระดับความยาก</h2>
+          <div class="mt-3 grid grid-cols-3 gap-2">
+            <button class="level-button" data-level="1" type="button">Level 1</button>
+            <button class="level-button" data-level="2" type="button">Level 2</button>
+            <button class="level-button" data-level="3" type="button">Level 3</button>
+          </div>
+          <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">
+            Level สูงขึ้น = แปลงมากขึ้น เป้าหมายมากขึ้น และใช้เวลาปลูกนานขึ้น
+          </p>
+        </section>
+
+        <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <h2 class="text-lg font-extrabold">⌨️ Keyboard</h2>
+          <ul class="mt-3 space-y-1 text-sm text-slate-600 dark:text-slate-300">
+            <li><kbd>1-5</kbd> เลือกเมล็ด</li>
+            <li><kbd>Space</kbd> ปลูก</li>
+            <li><kbd>W</kbd> รดน้ำ</li>
+            <li><kbd>H</kbd> เก็บเกี่ยว</li>
+            <li><kbd>N</kbd> เกมใหม่</li>
+            <li><kbd>Esc</kbd> ปิดหน้าต่าง</li>
+          </ul>
+        </section>
+
+        <button id="rulesButton" type="button"
+          class="w-full rounded-2xl bg-slate-900 px-5 py-4 font-extrabold text-white shadow-sm transition hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700">
+          📖 กติกาและวิธีเล่น
+        </button>
+      </aside>
+    </div>
+  </main>
+
+  <div id="rulesModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+    <div class="modal-card">
+      <div class="flex items-center justify-between gap-4">
+        <h2 id="rulesTitle" class="text-2xl font-extrabold">📖 กติกาและวิธีเล่น</h2>
+        <button id="closeRules" type="button" class="rounded-lg px-3 py-2 text-xl hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="ปิด">✕</button>
+      </div>
+
+      <div class="mt-5 space-y-4 text-sm leading-7 text-slate-700 dark:text-slate-300">
+        <p><strong>เป้าหมาย:</strong> เก็บเกี่ยวผักให้ครบตามจำนวนเป้าหมายก่อนหมดเวลา</p>
+        <p><strong>ชนะ:</strong> เมื่อเก็บเกี่ยวครบตามเป้าหมายของ Level</p>
+        <p><strong>แพ้:</strong> เมื่อเวลานับถอยหลังเหลือ 0 ก่อนทำเป้าหมายสำเร็จ</p>
+        <p><strong>วิธีเล่น:</strong> เลือกเมล็ด → เลือกแปลง → กดปลูก → กดรดน้ำ → รอให้โต → กดเก็บเกี่ยว</p>
+        <p><strong>ร้านค้า:</strong> ใช้เหรียญซื้อเมล็ดเพิ่ม และนำผักที่เก็บได้มาเพิ่มเหรียญ</p>
+        <p><strong>Keyboard:</strong> กด 1-5 เลือกเมล็ด, Space ปลูก, W รดน้ำ, H เก็บเกี่ยว, N เริ่มเกมใหม่</p>
+        <p><strong>Level:</strong> Level 1 มี 4 แปลง, Level 2 มี 9 แปลง, Level 3 มี 16 แปลง</p>
+      </div>
+
+      <button id="closeRulesBottom" type="button"
+        class="mt-6 w-full rounded-xl bg-green-600 px-4 py-3 font-bold text-white hover:bg-green-700">
+        เข้าใจแล้ว
+      </button>
+    </div>
+  </div>
+
+  <div id="resultModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+    <div class="modal-card text-center">
+      <div id="resultEmoji" class="text-6xl">🎉</div>
+      <h2 id="resultTitle" class="mt-3 text-3xl font-extrabold">ชนะ!</h2>
+      <p id="resultMessage" class="mt-3 text-slate-600 dark:text-slate-300"></p>
+      <button id="resultNewGame" type="button"
+        class="mt-6 w-full rounded-xl bg-green-600 px-4 py-3 font-bold text-white hover:bg-green-700">
+        🎮 เล่นอีกครั้ง
+      </button>
+    </div>
+  </div>
+
+  <script src="javascript.js"></script>
+</body>
+</html>
